@@ -8,21 +8,29 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExercicioDificilController {
 
     @GetMapping("/ex-03/{n}")
-    public ExercicioDificilResponse exercicioDificil(int n) {
+    public ExercicioDificilResponse exercicioDificil(@PathVariable int n) {
+
+
 
         int ultimoNum = 1;
         int penultimoNum = 0;
         int proximoNum = 0;
         int soma = 1;
 
-        for (int i = 0; i < n; i++) {
+        if(n <= 0) {
+            soma = 0;
+            ultimoNum = 0;
+        } else {
+        for (int i = 1; i < n; i++) {
 
             proximoNum = ultimoNum + penultimoNum;
             penultimoNum = ultimoNum;
             ultimoNum = proximoNum;
 
             soma += ultimoNum;
-        }
-        return null;
+        }}
+
+        ExercicioDificilResponse resposta = new ExercicioDificilResponse(ultimoNum, soma);
+        return resposta;
     }
 }
